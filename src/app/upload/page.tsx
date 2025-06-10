@@ -14,17 +14,20 @@ export default function UploadPage() {
 	const userId = session?.user?.id || 'fallback-id';
 
 	const initiateUpload = async (file: File) => {
-		const res = await fetch(`${process.env.API_URL}/video/initiate-upload`, {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-				Authorization: `Bearer ${token}`,
-			},
-			body: JSON.stringify({
-				userId,
-				fileName: file.name,
-			}),
-		});
+		const res = await fetch(
+			`${process.env.NEXT_PUBLIC_API_URL}/video/initiate-upload`,
+			{
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+					Authorization: `Bearer ${token}`,
+				},
+				body: JSON.stringify({
+					userId,
+					fileName: file.name,
+				}),
+			}
+		);
 
 		if (!res.ok) throw new Error('Failed to get upload URL');
 		return res.json();
@@ -51,14 +54,17 @@ export default function UploadPage() {
 
 	const confirmUploadMutation = useMutation({
 		mutationFn: async (videoId: string) => {
-			const res = await fetch(`${process.env.API_URL}/video/confirm-upload`, {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json',
-					Authorization: `Bearer ${token}`,
-				},
-				body: JSON.stringify({ videoId }),
-			});
+			const res = await fetch(
+				`${process.env.NEXT_PUBLIC_API_URL}/video/confirm-upload`,
+				{
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+						Authorization: `Bearer ${token}`,
+					},
+					body: JSON.stringify({ videoId }),
+				}
+			);
 			if (!res.ok) throw new Error('Upload confirmation failed');
 		},
 	});

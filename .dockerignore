@@ -1,0 +1,11 @@
+# .dockerignore
+node_modules
+.next
+.git
+*.md
+Dockerfile
+.dockerignore
+.env*.local
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
